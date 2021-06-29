@@ -7,11 +7,13 @@ class Event
 
         # Assigns name to instance if unique, else redirects.
         @name = validate_unique_name name
-        @talks = []
+        if @name
+            @talks = []
 
-        @@events.push(self)
+            @@events.push(self)
 
-        handle_success "The event #{@name} was added!"
+            handle_success "The event #{@name} was created!"
+        end
     end
 
     def valid
@@ -19,9 +21,12 @@ class Event
     end
 
     def print_event
-        puts @name
-        puts @valid ? "YUP" : "NUP"
-        puts @@events
+        system "clear"
+        @talks.each do |t|
+            puts "#{t.start_time.strftime("%I:%M%p")} -  #{t.end_time.strftime("%I:%M%p")}"
+            puts "  #{t.name} presented by #{t.speaker.name}"
+        end
+        puts
     end 
 
     def add_talk(talk)
@@ -50,5 +55,17 @@ class Event
 
     def self.events
         return @@events
+    end
+
+    def self.print_event_name(event_name)
+        if Event.events.reduce(false) {|outcome, event| outcome || (event.name == event_name)}
+            # Event exists, find it and print it's events.
+            Event.events.select{ |e| e.name == event_name }[0].print_event
+            return true
+        else
+            # Event didn't exist, print validation error and redirect to menu.
+            handle_validation_fail "That event doesn't exist!"
+            return false
+        end
     end
 end

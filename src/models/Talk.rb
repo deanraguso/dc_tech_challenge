@@ -4,7 +4,7 @@ require_relative "Event"
 
 class Talk
 
-    attr_reader :name, :event_name
+    attr_reader :name, :event_name, :start_time, :end_time, :speaker
 
     def initialize(event_name, name, start_time, end_time, speaker_name)
         
@@ -14,25 +14,19 @@ class Talk
         # Validates the talk name is unique.
         @name = validate_unique_name name 
 
-        # Parse in start and end time, then check it doesn't overlap with any other talk in the event.
-        @start_time = Time.parse(start_time)
-        @end_time = Time.parse(end_time)
-        @event.overlap_redirect(@start_time, @end_time)
+        if @event && @name
+            # Parse in start and end time, then check it doesn't overlap with any other talk in the event.
+            @start_time = Time.parse(start_time)
+            @end_time = Time.parse(end_time)
+            @event.overlap_redirect(@start_time, @end_time)
 
-        # Find the related speaker, else redirects.
-        @speaker = validate_speaker speaker_name
+            # Find the related speaker, else redirects.
+            @speaker = validate_speaker speaker_name
 
-        # Talk is valid, push to event.
-        @event.add_talk(self)
-        handle_success "The talk was added to the #{@event.name} event!"
-    end
-
-    def print_task
-        puts @event_name
-        puts @name
-        puts @start_time
-        puts @end_time
-        puts @speaker
+            # Talk is valid, push to event.
+            @event.add_talk(self)
+            handle_success "#{@name} was added to the #{@event.name} event!"
+        end
     end
 
     # Returns name if unique, else redirects.
@@ -40,7 +34,7 @@ class Talk
         if @event.talks.reduce(true) {|outcome, talk| outcome && (talk.name != name)}
             return name
         else
-            handle_validation_fail "Task name is already taken!"
+            handle_validation_fail "Talk name is already used on this event!"
         end
     end
 
@@ -71,6 +65,6 @@ class Talk
     # Returns true if the start and end time overlap with current talk.
     def overlaps?(start_time, end_time)
         # If the start or end time is between this talks start and end time, it overlaps.
-        ((start_time < @end_time) && (start_time > @start_time)) || ((end_time < @end_time) && (end_time > @start_time))
+        ((start_time <= @end_time) && (start_time >= @start_time)) || ((end_time <= @end_time) && (end_time >= @start_time))
     end
 end

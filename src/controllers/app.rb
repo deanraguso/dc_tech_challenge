@@ -52,17 +52,14 @@ def handle_create(response)
     when "EVENT"
         correct_number_of_args(response, 3)
         event = Event.new(response.split(" ")[2]);
-        # event.print_event
 
     when "SPEAKER"
         correct_number_of_args(response, 3)
         speaker = Speaker.new(response.split(" ")[2]);
-        # speaker.print_speaker
 
     when "TALK"
         correct_number_of_args(response, 7)
         talk = Talk.new(*response.split(" ")[2,6]);
-        # talk.print_task
     else
         handle_invalid_input "Unkown object."
     end
@@ -70,5 +67,17 @@ def handle_create(response)
 end
 
 def handle_print(response)
-    puts "You are trying to print something."
+
+    # Ensures there is at least one value following the object.
+    valid_arguments response
+
+    case response.split(" ")[1].upcase
+
+    when "TALKS"
+        correct_number_of_args(response, 3)
+        Event.print_event_name response.split(" ")[2]
+    else
+        handle_invalid_input "Unkown object."
+    end
+
 end

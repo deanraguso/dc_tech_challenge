@@ -29,24 +29,18 @@ def handle_invalid_input(comment = "Input was not recognized.")
     clear 
 
     invalid_input comment
-    menu_prompt
-    handle_menu
 end
 
 def handle_success(message="Hooray!")
     clear
 
     puts "Action Success: #{message}\n\n"
-    menu_prompt
-    handle_menu
 end
 
 def handle_validation_fail(comment = "Arguments had conflicts")
     clear
 
     puts "Validation Fail: #{comment}\n\n"
-    menu_prompt
-    handle_menu
 end
 
 # Validate input is non-empty, and has a supported command.

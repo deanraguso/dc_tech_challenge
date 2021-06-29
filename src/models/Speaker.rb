@@ -8,12 +8,10 @@ class Speaker
     def initialize(name)
         # If unique sets @name to name, else redirects.
         @name = validate_unique_name name
-        @@speakers.push(self)
-        handle_success "The speaker #{@name} was added!"
-    end
-
-    def print_speaker
-        puts @name
+        if @name
+            @@speakers.push(self)
+            handle_success "The speaker #{@name} was created!"
+        end
     end
 
 
