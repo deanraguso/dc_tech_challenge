@@ -1,4 +1,4 @@
-COMMANDS = ["CREATE", "PRINT"]
+COMMANDS = ["CREATE", "PRINT", "X", "H"]
 OBJECTS = ["EVENT", "SPEAKER", "TALK", "TALKS"]
 
 def greeting
@@ -6,14 +6,14 @@ def greeting
 end
 
 def menu_prompt
-    print "Enter your command: "
+    print "[x - exit | h - help] Enter your command: "
 end
 
 def help
-    puts "To create an event: CREATE EVENT event_name"
-    puts "To add a speaker to the most recent event: CREATE SPEAKER speaker_name"
-    puts "To add a speaker to a different event: CREATE SPEAKER event_name speaker_name"
-    puts "To add a talk to an event: CREATE TALK event_name talk_name talk_start_time talk_end_time speaker_name"
+    puts "To create an event: \t\t\t\tCREATE EVENT event_name"
+    puts "To add a speaker to the most recent event: \tCREATE SPEAKER speaker_name"
+    puts "To add a speaker to a different event: \t\tCREATE SPEAKER event_name speaker_name"
+    puts "To add a talk to an event: \t\t\tCREATE TALK event_name talk_name talk_start_time talk_end_time speaker_name\n\n"
 end
 
 def clear

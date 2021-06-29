@@ -1,8 +1,8 @@
 # Delegate Connect - Technical Challenge
 #### Author: Dean Raguso  
 
-## Challenge 
-Create a system capable to allow clients to create events, and have the events schedule be printable.
+## Challenge (Short)
+Create a system that allows clients to create virtual events, and have the schedule be printable.
 
 ## Features
 A use can...
@@ -17,6 +17,10 @@ The application...
 - Validates talks such that...
   - There is a valid speaker.
   - The talk doesn't overlap with other talks.
+
+## Tech Stack
+- Ruby
+- Shell
 
 ## Pseudocode
 

@@ -7,24 +7,35 @@ require_relative "../models/Talk"
 def app
     # Greet User
     greeting
-    menu_prompt
+    
+    while true
+        # Serve menu
+        menu_prompt
 
-    # Handle Input
-    handle_menu
+        # Handle Input
+        handle_menu
+    end
 end
 
 def handle_menu 
     response = gets.chomp
 
     valid_command response
-    valid_object response
-
+    
     # Handle input
     case response.split(" ")[0].upcase
     when "CREATE"
+        valid_object response
         handle_create response
     when "PRINT"
+        valid_object response
         handle_print response
+    when "X"
+        system "clear"
+        exit
+    when "H"
+        system "clear"
+        help
     else
         handle_invalid_input "Unknown command."
     end
