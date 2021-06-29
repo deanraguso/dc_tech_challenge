@@ -6,7 +6,6 @@ class Event
     def initialize(name)
         @name = name
         @talks = []
-        @speakers = []
         @@events.push(self)
     end
 
@@ -19,10 +18,6 @@ class Event
         puts @valid ? "YUP" : "NUP"
         puts @@events
     end 
-
-    def add_speaker(speaker)
-        @speaker.push(speaker)
-    end
 
     def add_talk(talk)
         @talks.push(talk)

@@ -6,7 +6,7 @@ def greeting
 end
 
 def menu_prompt
-    print "[x - exit | h - help] Enter your command: "
+    print "[x - exit | h - help]\nEnter your command: \t"
 end
 
 def help
