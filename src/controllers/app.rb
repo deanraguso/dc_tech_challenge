@@ -52,17 +52,17 @@ def handle_create(response)
     when "EVENT"
         correct_number_of_args(response, 3)
         event = Event.new(response.split(" ")[2]);
-        event.print
+        # event.print_event
 
     when "SPEAKER"
         correct_number_of_args(response, 3)
         speaker = Speaker.new(response.split(" ")[2]);
-        speaker.print
+        # speaker.print_speaker
 
     when "TALK"
         correct_number_of_args(response, 7)
         talk = Talk.new(*response.split(" ")[2,6]);
-        talk.print
+        # talk.print_task
     else
         handle_invalid_input "Unkown object."
     end

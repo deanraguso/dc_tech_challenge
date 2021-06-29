@@ -3,7 +3,7 @@ class Speaker
         @name = name
     end
 
-    def print
+    def print_speaker
         puts @name
     end
 end

@@ -31,6 +31,12 @@ def handle_invalid_input(comment = "Input was not recognized.")
     handle_menu
 end
 
+def handle_validation_fail(comment = "Arguments had conflicts")
+    puts "Validation Fail: #{comment}\n\n"
+    menu_prompt
+    handle_menu
+end
+
 # Validate input is non-empty, and has a supported command.
 def valid_command(response)
     unless (response.split(" ").length > 0) && (COMMANDS.include? response.split(" ")[0].upcase)
