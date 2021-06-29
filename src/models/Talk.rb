@@ -14,9 +14,10 @@ class Talk
         # Validates the talk name is unique.
         @name = validate_unique_name name 
 
-        # VALIDATE
+        # Parse in start and end time, then check it doesn't overlap with any other talk in the event.
         @start_time = Time.parse(start_time)
         @end_time = Time.parse(end_time)
+        @event.overlap_redirect(@start_time, @end_time)
 
         # Find the related speaker, else redirects.
         @speaker = validate_speaker speaker_name
@@ -65,5 +66,11 @@ class Talk
             handle_validation_fail "That event doesn't exist!"
             return false
         end
+    end
+
+    # Returns true if the start and end time overlap with current talk.
+    def overlaps?(start_time, end_time)
+        # If the start or end time is between this talks start and end time, it overlaps.
+        ((start_time < @end_time) && (start_time > @start_time)) || ((end_time < @end_time) && (end_time > @start_time))
     end
 end
