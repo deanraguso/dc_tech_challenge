@@ -39,34 +39,19 @@ def valid_command(response)
 end
 
 def valid_object(response)
-
     unless (response.split(" ").length > 1) && (OBJECTS.include? response.split(" ")[1].upcase)
         handle_invalid_input "Valid object not provided. 'EVENT', 'SPEAKER', 'TALK', or 'TALKS'"
     end
 end
 
-def handle_create(response)
-    puts "You are trying to create something"
-end
-
-def handle_print(response)
-    puts "You are trying to print something"
-end
-
-def handle_menu 
-    response = gets.chomp
-
-    valid_command response
-    valid_object response
-
-    # Handle input
-    case response.split(" ")[0].upcase
-    when "CREATE"
-        handle_create response
-    when "PRINT"
-        handle_print response
-    else
-        handle_invalid_input
+def valid_arguments(response)
+    unless (response.split(" ").length > 2)
+        handle_invalid_input "No arguments provided."
     end
+end
 
+def correct_number_of_args(response, n)
+    unless (response.split(" ").length == n)
+        handle_invalid_input "Wrong number of arguments specified."
+    end
 end
