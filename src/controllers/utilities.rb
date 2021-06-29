@@ -1,5 +1,16 @@
+COMMANDS = ["CREATE", "PRINT"]
+
 def greeting
     puts "Welcome to Mad Events planner.\n\n"
+end
+
+def menu_prompt
+    print "Enter your command: "
+end
+
+def invalid_input
+    clear
+    puts "Input was invalid!"
 end
 
 def help
@@ -13,6 +24,33 @@ def clear
     system "clear"
 end
 
-def handleMenu
-    
+def handle_invalid_input
+    invalid_input
+    menu_prompt
+    handle_menu
+end
+
+def valid_command(response)
+    # Checks input has at least one command
+    unless (response.split(" ").length > 0) && (COMMANDS.include? response.split(" ")[0].upcase)
+        handle_invalid_input
+    end
+end
+
+def handle_menu 
+    response = gets.chomp
+
+    # Validate input is non-empty, and has a supported command.
+    valid_command response
+
+    # Handle input
+    case response.split(" ")[0].upcase
+    when "CREATE"
+        puts "You are trying to create something"
+    when "PRINT"
+        puts "You are trying to print something"
+    else
+        handle_invalid_input
+    end
+
 end
