@@ -4,9 +4,14 @@ class Event
     attr_reader :name, :talks, :speakers
 
     def initialize(name)
-        @name = name
+
+        # Assigns name to instance if unique, else redirects.
+        @name = validate_unique_name name
         @talks = []
+
         @@events.push(self)
+
+        handle_success "The event #{@name} was added!"
     end
 
     def valid
@@ -21,6 +26,17 @@ class Event
 
     def add_talk(talk)
         @talks.push(talk)
+    end
+
+    # Checks that event name is unique, returns if it is, else redirects.
+    def validate_unique_name(name)
+        if @@events.reduce(true) {|outcome, event| outcome && (event.name != name)}
+            # Event name is unique.
+            return name
+        else
+            handle_validation_fail "That event name already exists!"
+            return false
+        end
     end
 
     def self.events

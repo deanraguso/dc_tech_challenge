@@ -23,6 +23,7 @@ class Talk
 
         # Talk is valid, push to event.
         @event.add_talk(self)
+        handle_success "The talk was added to the #{@event.name} event!"
     end
 
     def print_task
@@ -65,5 +66,4 @@ class Talk
             return false
         end
     end
-
 end
