@@ -1,4 +1,5 @@
 COMMANDS = ["CREATE", "PRINT"]
+OBJECTS = ["EVENT", "SPEAKER", "TALK", "TALKS"]
 
 def greeting
     puts "Welcome to Mad Events planner.\n\n"
@@ -6,11 +7,6 @@ end
 
 def menu_prompt
     print "Enter your command: "
-end
-
-def invalid_input
-    clear
-    puts "Input was invalid!"
 end
 
 def help
@@ -24,31 +20,51 @@ def clear
     system "clear"
 end
 
-def handle_invalid_input
-    invalid_input
+def invalid_input(comment)
+    clear
+    puts "Input was invalid: #{comment}\n\n"
+end
+
+def handle_invalid_input(comment = "Input was not recognized.")
+    invalid_input comment
     menu_prompt
     handle_menu
 end
 
+# Validate input is non-empty, and has a supported command.
 def valid_command(response)
-    # Checks input has at least one command
     unless (response.split(" ").length > 0) && (COMMANDS.include? response.split(" ")[0].upcase)
-        handle_invalid_input
+        handle_invalid_input "Valid command not provided. 'CREATE' or 'PRINT'"
     end
+end
+
+def valid_object(response)
+
+    unless (response.split(" ").length > 1) && (OBJECTS.include? response.split(" ")[1].upcase)
+        handle_invalid_input "Valid object not provided. 'EVENT', 'SPEAKER', 'TALK', or 'TALKS'"
+    end
+end
+
+def handle_create(response)
+    puts "You are trying to create something"
+end
+
+def handle_print(response)
+    puts "You are trying to print something"
 end
 
 def handle_menu 
     response = gets.chomp
 
-    # Validate input is non-empty, and has a supported command.
     valid_command response
+    valid_object response
 
     # Handle input
     case response.split(" ")[0].upcase
     when "CREATE"
-        puts "You are trying to create something"
+        handle_create response
     when "PRINT"
-        puts "You are trying to print something"
+        handle_print response
     else
         handle_invalid_input
     end
