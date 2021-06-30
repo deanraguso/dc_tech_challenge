@@ -3,7 +3,7 @@ echo '**Starting Application**'
 # If it has been built before, don't bundle.
 if test -f ".build" 
 then 
-    echo "Last Update: "
+    echo "Last Build: "
     cat .build
 else
     bundle

@@ -21,9 +21,9 @@ class Event
 
     # Print the schedule associated with this event.
     def print_event
-        system "clear"
-        @talks.each do |t|
-            puts "#{t.start_time.strftime("%I:%M%p")} -  #{t.end_time.strftime("%I:%M%p")}"
+        clear
+        @talks.sort_by {|task| task.start_time }.each do |t|
+            puts "#{t.start_time.strftime("%I:%M%p").delete_prefix("0").downcase} - #{t.end_time.strftime("%I:%M%p").delete_prefix("0").downcase}"
             puts "  #{t.name} presented by #{t.speaker.name}"
         end
         puts

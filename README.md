@@ -1,6 +1,13 @@
 # Delegate Connect - Technical Challenge
 #### Author: Dean Raguso  
 
+## Usage
+1. Navigate terminal to the root directory of application.
+2. Execute the run script, linux "./run.sh"
+   1. If you can't, bundle install gem dependencies.
+   2. Move into the src directory.
+   3. Run the index.rb file using Ruby, "ruby index.rb".
+3. Once in the application, type "h" and enter for available commands.
 ## Challenge (Short)
 Create a system that allows clients to create virtual events, and have the schedule be printable.
 
@@ -21,18 +28,3 @@ The application...
 ## Tech Stack
 - Ruby
 - Shell
-
-## Pseudocode
-
-**Handling Commands**
-1. Split the command into keywords.
-2. Enter words into switch statement to decide action.
-3. Call the associated action.
-4. To print an event, call the event's printing method.
-
-**Building Events**
-1. Pass event name through class constructor.
-2. Use class methods to add speakers and talks to the class object.
-3. Use class method to print event time-table.
-
-(Talks should also be an object)

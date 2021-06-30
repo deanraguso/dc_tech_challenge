@@ -13,24 +13,30 @@ class Talk
         # Find the related event if valid, else redirects.
         @event = validate_event remove_apos(event_name)
 
-        # Validates the talk name is unique.
-        @name = validate_unique_name remove_apos(name)
+        if @event
+            # Validates the talk name is unique.
+            @name = validate_unique_name remove_apos(name)
 
-        # Find the related speaker, else redirects.
-        @speaker = validate_speaker remove_apos(speaker_name)
+            if @name
+                # Find the related speaker, else redirects.
+                @speaker = validate_speaker remove_apos(speaker_name)
 
-        # Parse in start and end time, then check it doesn't overlap with any other talk in the event.
-        @start_time = Time.parse(start_time)
-        @end_time = Time.parse(end_time)
-        
-        # Time Validation and adjustments, forces end time to be after start.
-        @end_time = @end_time < @start_time ? @end_time + DAY_IN_SECONDS : @end_time;
-        overlap_check = @event.overlaps?(@start_time, @end_time)
+                if @speaker
+                    # Parse in start and end time, then check it doesn't overlap with any other talk in the event.
+                    @start_time = Time.parse(start_time)
+                    @end_time = Time.parse(end_time)
+                    
+                    # Time Validation and adjustments, forces end time to be after start.
+                    @end_time = @end_time < @start_time ? @end_time + DAY_IN_SECONDS : @end_time;
+                    overlap_check = @event.overlaps?(@start_time, @end_time)
 
-        if @event && @name && @speaker && !overlap_check
-            # Talk is valid, push to event.
-            @event.add_talk(self)
-            handle_success "#{@name} was added to the #{@event.name} event!"
+                    if !overlap_check
+                        # Talk is valid, push to event.
+                        @event.add_talk(self)
+                        handle_success "#{@name} was added to the #{@event.name} event!"
+                    end
+                end
+            end
         end
     end
 
