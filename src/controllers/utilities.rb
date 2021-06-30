@@ -1,6 +1,11 @@
 COMMANDS = ["CREATE", "PRINT", "X", "H"]
 OBJECTS = ["EVENT", "SPEAKER", "TALK", "TALKS"]
 
+def com_split(command)
+    command = command.delete_prefix('`').delete_suffix('`')
+    command.split(/\s(?=(?:[^']|'[^']*')*$)/)
+end
+
 def greeting
     puts "Welcome to Mad Events planner.\n\n"
 end
@@ -45,25 +50,33 @@ end
 
 # Validate input is non-empty, and has a supported command.
 def valid_command(response)
-    unless (response.split(" ").length > 0) && (COMMANDS.include? response.split(" ")[0].upcase)
+    unless (com_split(response).length > 0) && (COMMANDS.include? com_split(response)[0].upcase)
         handle_invalid_input "Valid command not provided. 'CREATE' or 'PRINT'"
+        return false
     end
+    return true
 end
 
 def valid_object(response)
-    unless (response.split(" ").length > 1) && (OBJECTS.include? response.split(" ")[1].upcase)
+    unless (com_split(response).length > 1) && (OBJECTS.include? com_split(response)[1].upcase)
         handle_invalid_input "Valid object not provided. 'EVENT', 'SPEAKER', 'TALK', or 'TALKS'"
+        return false
     end
+    return true
 end
 
 def valid_arguments(response)
-    unless (response.split(" ").length > 2)
+    unless (com_split(response).length > 2)
         handle_invalid_input "No arguments provided."
+        return false
     end
+    return true
 end
 
 def correct_number_of_args(response, n)
-    unless (response.split(" ").length == n)
+    unless (com_split(response).length == n)
         handle_invalid_input "Wrong number of arguments specified."
+        return false
     end
+    return true
 end

@@ -45,12 +45,12 @@ class Event
     end
 
     # Checks that a talks start and end time don't overlap with a talk within this event.
-    def overlap_redirect(start_time, end_time)
+    def overlaps?(start_time, end_time)
         unless @talks.reduce(true) {|outcome, talk| outcome && !talk.overlaps?(start_time, end_time) }
-            handle_validation_fail "Overlaps with existing talks for the #{self.name} event!"
-            return false
+            handle_validation_fail "Overlaps with existing talks in the #{self.name} event!"
+            return true
         end
-        return true
+        return false
     end
 
     def self.events

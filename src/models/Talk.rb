@@ -1,6 +1,7 @@
 require_relative "../controllers/utilities"
 require_relative "../controllers/app"
 require_relative "Event"
+DAY_IN_SECONDS = 86400
 
 class Talk
 
@@ -14,15 +15,18 @@ class Talk
         # Validates the talk name is unique.
         @name = validate_unique_name name 
 
-        if @event && @name
-            # Parse in start and end time, then check it doesn't overlap with any other talk in the event.
-            @start_time = Time.parse(start_time)
-            @end_time = Time.parse(end_time)
-            @event.overlap_redirect(@start_time, @end_time)
+        # Find the related speaker, else redirects.
+        @speaker = validate_speaker speaker_name
 
-            # Find the related speaker, else redirects.
-            @speaker = validate_speaker speaker_name
+        # Parse in start and end time, then check it doesn't overlap with any other talk in the event.
+        @start_time = Time.parse(start_time)
+        @end_time = Time.parse(end_time)
+        
+        # Time Validation and adjustments, forces end time to be after start.
+        @end_time = @end_time < @start_time ? @end_time + DAY_IN_SECONDS : @end_time;
+        overlap_check = @event.overlaps?(@start_time, @end_time)
 
+        if @event && @name && @speaker && !overlap_check
             # Talk is valid, push to event.
             @event.add_talk(self)
             handle_success "#{@name} was added to the #{@event.name} event!"
@@ -65,6 +69,11 @@ class Talk
     # Returns true if the start and end time overlap with current talk.
     def overlaps?(start_time, end_time)
         # If the start or end time is between this talks start and end time, it overlaps.
-        ((start_time <= @end_time) && (start_time >= @start_time)) || ((end_time <= @end_time) && (end_time >= @start_time))
+        starts_within = ((start_time <= @end_time) && (start_time >= @start_time))
+        ends_within = ((end_time <= @end_time) && (end_time >= @start_time))  
+        wraps_around = ((end_time >= @end_time) && (start_time <= @start_time))
+
+        # If any of the above is true, there is an overlap with self.
+        return starts_within || ends_within || wraps_around
     end
 end
