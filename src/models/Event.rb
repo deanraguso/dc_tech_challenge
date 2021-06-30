@@ -1,3 +1,6 @@
+require_relative "../controllers/utilities"
+require_relative "../views/utilities"
+
 class Event
     @@events = []
 
@@ -16,10 +19,7 @@ class Event
         end
     end
 
-    def valid
-        return @speaker ? true : false;
-    end
-
+    # Print the schedule associated with this event.
     def print_event
         system "clear"
         @talks.each do |t|
@@ -29,6 +29,7 @@ class Event
         puts
     end 
 
+    # Adds talk to event, must be validated before_hand.
     def add_talk(talk)
         @talks.push(talk)
     end
@@ -53,10 +54,14 @@ class Event
         return false
     end
 
+    # Class Methods
+
+    # Returns all events in array.
     def self.events
         return @@events
     end
 
+    # Prints event if it exists, else redirects.
     def self.print_event_name(event_name)
         if Event.events.reduce(false) {|outcome, event| outcome || (event.name == event_name)}
             # Event exists, find it and print it's events.

@@ -1,9 +1,12 @@
+# Main Application controller
+
 require 'time'
 require_relative "utilities"
 require_relative "../models/Event"
 require_relative "../models/Speaker"
 require_relative "../models/Talk"
 
+# Application main method, loops until broken by an escape action.
 def app
     # Greet User
     greeting

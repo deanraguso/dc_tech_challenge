@@ -1,4 +1,5 @@
 require_relative "../controllers/utilities"
+require_relative "../views/utilities"
 require_relative "../controllers/app"
 require_relative "Event"
 DAY_IN_SECONDS = 86400

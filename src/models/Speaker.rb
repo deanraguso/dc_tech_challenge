@@ -1,4 +1,5 @@
 require_relative "../controllers/utilities"
+require_relative "../views/utilities"
 
 class Speaker
     @@speakers = []
@@ -25,6 +26,7 @@ class Speaker
         end
     end
 
+    # Returns class storage of all speakers.
     def self.speakers
         return @@speakers
     end

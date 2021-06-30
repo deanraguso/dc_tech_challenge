@@ -1,3 +1,8 @@
+# Utilities for controller validations and common methods.
+
+require "rainbow"
+require_relative "../views/utilities"
+
 COMMANDS = ["CREATE", "PRINT", "X", "H"]
 OBJECTS = ["EVENT", "SPEAKER", "TALK", "TALKS"]
 
@@ -8,48 +13,6 @@ end
 def com_split(command)
     command = remove_apos command
     command.split(/\s(?=(?:[^']|'[^']*')*$)/)
-end
-
-def greeting
-    puts "Welcome to Mad Events planner.\n\n"
-end
-
-def menu_prompt
-    print "[x - exit | h - help]\nEnter your command: "
-end
-
-def help
-    puts "To create an event: \t\t\t\tCREATE EVENT event_name"
-    puts "To add a speaker to the most recent event: \tCREATE SPEAKER speaker_name"
-    puts "To add a speaker to a different event: \t\tCREATE SPEAKER event_name speaker_name"
-    puts "To add a talk to an event: \t\t\tCREATE TALK event_name talk_name talk_start_time talk_end_time speaker_name\n\n"
-end
-
-def clear
-    system "clear"
-end
-
-def invalid_input(comment)
-    clear
-    puts "Input was invalid: #{comment}\n\n"
-end
-
-def handle_invalid_input(comment = "Input was not recognized.")
-    clear 
-
-    invalid_input comment
-end
-
-def handle_success(message="Hooray!")
-    clear
-
-    puts "Action Success: #{message}\n\n"
-end
-
-def handle_validation_fail(comment = "Arguments had conflicts")
-    clear
-
-    puts "Validation Fail: #{comment}\n\n"
 end
 
 # Validate input is non-empty, and has a supported command.
