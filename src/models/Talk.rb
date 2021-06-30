@@ -10,13 +10,13 @@ class Talk
     def initialize(event_name, name, start_time, end_time, speaker_name)
         
         # Find the related event if valid, else redirects.
-        @event = validate_event event_name
+        @event = validate_event remove_apos(event_name)
 
         # Validates the talk name is unique.
-        @name = validate_unique_name name 
+        @name = validate_unique_name remove_apos(name)
 
         # Find the related speaker, else redirects.
-        @speaker = validate_speaker speaker_name
+        @speaker = validate_speaker remove_apos(speaker_name)
 
         # Parse in start and end time, then check it doesn't overlap with any other talk in the event.
         @start_time = Time.parse(start_time)

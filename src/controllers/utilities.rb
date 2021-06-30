@@ -1,8 +1,12 @@
 COMMANDS = ["CREATE", "PRINT", "X", "H"]
 OBJECTS = ["EVENT", "SPEAKER", "TALK", "TALKS"]
 
+def remove_apos argument
+    argument.delete_prefix('`').delete_suffix('`').delete_prefix("'").delete_suffix("'")
+end
+
 def com_split(command)
-    command = command.delete_prefix('`').delete_suffix('`')
+    command = remove_apos command
     command.split(/\s(?=(?:[^']|'[^']*')*$)/)
 end
 

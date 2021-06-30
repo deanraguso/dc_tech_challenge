@@ -52,11 +52,11 @@ def handle_create(response)
 
     when "EVENT"
         if correct_number_of_args(response, 3)
-            event = Event.new(com_split(response)[2]);
+            event = Event.new(remove_apos com_split(response)[2]);
         end
     when "SPEAKER"
         if correct_number_of_args(response, 3)
-            speaker = Speaker.new(com_split(response)[2]);
+            speaker = Speaker.new(remove_apos com_split(response)[2]);
         end
     when "TALK"
         if correct_number_of_args(response, 7)
