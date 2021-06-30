@@ -46,6 +46,7 @@ class Talk
             return name
         else
             handle_validation_fail "Talk name is already used on this event!"
+            return false
         end
     end
 

@@ -73,4 +73,9 @@ class Event
             return false
         end
     end
+
+    # Events clear for testing purposes.
+    def self.clear_events
+        @@events = []
+    end
 end

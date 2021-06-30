@@ -30,4 +30,8 @@ class Speaker
     def self.speakers
         return @@speakers
     end
+
+    def self.clear_speakers
+        @@speakers = []
+    end
 end
