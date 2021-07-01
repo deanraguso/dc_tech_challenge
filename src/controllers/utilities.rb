@@ -16,12 +16,13 @@ end
 
 # Validate input is non-empty, and has a supported command.
 def valid_command(response)
-    unless (com_split(response).length > 0) && (COMMANDS.include? com_split(response)[0].upcase)
-        puts com_split(response)[0].upcase
+    
+    if response && (com_split(response).length > 0) && (COMMANDS.include? com_split(response)[0].upcase)
+        return true
+    else
         handle_invalid_input "Valid command not provided. 'CREATE' or 'PRINT'"
         return false
     end
-    return true
 end
 
 def valid_object(response)
