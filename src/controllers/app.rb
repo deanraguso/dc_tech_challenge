@@ -80,6 +80,7 @@ def handle_print(response)
 
     when "TALKS"
         if correct_number_of_args(response, 3)
+            p com_split(response)[2]
             Event.print_event_name com_split(response)[2]
         end
     else

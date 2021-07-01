@@ -9,7 +9,7 @@ class Event
     def initialize(name)
 
         # Assigns name to instance if unique, else redirects.
-        @name = validate_unique_name name
+        @name = validate_unique_name(remove_apos(name))
         if @name
             @talks = []
 
@@ -63,6 +63,7 @@ class Event
 
     # Prints event if it exists, else redirects.
     def self.print_event_name(event_name)
+        event_name = remove_apos(event_name)
         if Event.events.reduce(false) {|outcome, event| outcome || (event.name == event_name)}
             # Event exists, find it and print it's events.
             Event.events.select{ |e| e.name == event_name }[0].print_event

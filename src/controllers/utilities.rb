@@ -11,13 +11,13 @@ def remove_apos argument
 end
 
 def com_split(command)
-    command = remove_apos command
     command.split(/\s(?=(?:[^']|'[^']*')*$)/)
 end
 
 # Validate input is non-empty, and has a supported command.
 def valid_command(response)
     unless (com_split(response).length > 0) && (COMMANDS.include? com_split(response)[0].upcase)
+        puts com_split(response)[0].upcase
         handle_invalid_input "Valid command not provided. 'CREATE' or 'PRINT'"
         return false
     end
