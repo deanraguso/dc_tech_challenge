@@ -1,3 +1,4 @@
+clear
 echo '**Starting Application**'
 
 # If it has been built before, don't bundle.

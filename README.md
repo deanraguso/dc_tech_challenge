@@ -3,7 +3,7 @@
 
 ## Usage
 1. Navigate terminal to the root directory of application.
-2. Execute the run script, linux "./run.sh"
+2. Execute the run script, linux "./run.sh".
    1. If you can't, bundle install gem dependencies.
    2. Move into the src directory.
    3. Run the index.rb file using Ruby, "ruby index.rb".
